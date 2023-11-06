@@ -1,0 +1,7 @@
+.idea/
+.vscode/
+venv/
+*.xlsx
+*.txt
+*.xml
+*.ipynb
