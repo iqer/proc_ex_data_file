@@ -6,6 +6,7 @@ from const import RES_PATH, RUN_RECORD_FILE_PATH, EX_SH_MKT_RE, EX_SH_FJY_RE_EXP
 from ex_sh_fjy_file import SHEXFjyFile
 from ex_sh_jfjy_file import SHEXJfjyFile
 from ex_sh_mkt_file import SHEXMKTFile
+from log import logger
 
 
 def proc_ex_data_file():
@@ -94,4 +95,8 @@ def _save_run_record(run_record):
 
 
 if __name__ == '__main__':
-    proc_ex_data_file()
+    try:
+        proc_ex_data_file()
+    except Exception as e:
+        import traceback
+        logger.warning(traceback.format_exc())

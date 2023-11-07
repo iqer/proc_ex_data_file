@@ -1,0 +1,13 @@
+*.txt
+!requirements.txt
+
+res/*.xlsx
+res/*.json
+
+*.log
+
+.git/
+venv/
+.idea/
+.vscode/
+__pycaceh__/

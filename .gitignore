@@ -6,3 +6,4 @@ venv/
 *.xml
 *.ipynb
 *.json
+*.log
