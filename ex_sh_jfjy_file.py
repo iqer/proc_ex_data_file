@@ -1,12 +1,14 @@
-import xml.etree.ElementTree as ET
-from xml.dom.minidom import parse, parseString
+from xml.dom.minidom import parseString
+
+import pandas as pd
+
+from tools import to_excel_autowidth_and_border
 
 
 def main():
     content = open('./上交所数据文件/jfjy20230708.xml', encoding='gbk').read()
     dom = parseString(content)
     root = dom.documentElement
-
 
     element_list = []
     child_ele = {}
@@ -45,23 +47,32 @@ def valid_data_lines(data_lines):
                 assert crea_rtgs_tag in ['0', '1']
             else:
                 assert len(crea_rtgs_tag) == 1
+            item = [inst_id, inst_name, busi_typ, crea_rtgs_tag]
+            etf_cash_list.append(item)
 
-# with open('./上交所数据文件/utf-8-jfjy20230708.xml', encoding='utf-8', mode='w') as f:
-#     f.write(content)
-# xmlp = ET.XMLParser(encoding="gbk")
-# tree = ET.parse('./上交所数据文件/jfjy20230708.xml',parser=xmlp)
-# tree = ET.parse('./上交所数据文件/jfjy20230708.xml', parser=ET.XMLParser(encoding='iso-8859-5'))
-# tree = ET.parse('')   # 解析 XML 文件
-# root = tree.getroot()
+    dump_data_to_excel(etf_goods_gold_list, etf_cash_list)
 
-#
-# # 遍历根元素下的子元素
-# for child in root:
-#     print(child.items())
-#     print(child.tag, child.attrib)
+
+def dump_data_to_excel(etf_goods_gold_list, etf_cash_list):
+    writer = pd.ExcelWriter(FILE_NAME, engine='xlsxwriter')
+    df = pd.DataFrame(etf_goods_gold_list, columns=[
+        '证券代码',
+        '证券简称',
+        '业务类型',
+    ])
+    to_excel_autowidth_and_border(writer, df, sheetname='ETF实物黄金申赎', startrow=0, startcol=0)
+    df = pd.DataFrame(etf_cash_list, columns=[
+        '证券代码',
+        '证券简称',
+        '业务类型',
+        'RTGS申购标志',
+    ])
+    to_excel_autowidth_and_border(writer, df, sheetname='ETF现金申赎', startrow=0, startcol=0)
+
+    writer.close()
+
 
 FILE_NAME = 'jfjy20230708.xlsx'
-
 
 if __name__ == '__main__':
     main()
