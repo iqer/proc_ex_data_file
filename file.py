@@ -10,10 +10,9 @@ class File:
         self.file_path = os.path.sep.join([RES_PATH, file_name])
         if self.file_name.endswith('.txt'):
             self.output_file_name = self.file_name.replace('.txt', '.xlsx')
-            self.output_file_path = os.path.sep.join([RES_PATH, self.output_file_name])
         elif self.file_name.endswith('.xml'):
             self.output_file_name = self.file_name.replace('.xml', '.xlsx')
-            self.output_file_path = os.path.sep.join([RES_PATH, self.output_file_name])
+        self.output_file_path = os.path.sep.join([RES_PATH, self.output_file_name])
         self._load_data_lines()
         self._check_data_lines()
         self._proc_data_lines()
