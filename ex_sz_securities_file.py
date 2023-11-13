@@ -199,7 +199,7 @@ class SZEXSecurityFile(File):
                 assert len(line['RegularShare']) <= 8
                 assert line['QualificationFlag'] in ['Y', 'N']
                 assert line['QualificationClass'] in ['0', '1', '2']
-            except Exception as e:
+            except Exception:
                 import traceback
                 error_message = traceback.format_exc()
                 assert_pattern = r'assert .*\n'

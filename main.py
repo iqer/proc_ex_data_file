@@ -97,6 +97,6 @@ def _save_run_record(run_record):
 if __name__ == '__main__':
     try:
         proc_ex_data_file()
-    except Exception as e:
+    except Exception:
         import traceback
         logger.warning(traceback.format_exc())
